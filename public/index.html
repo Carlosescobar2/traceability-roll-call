@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMoutain Roll call</title>
+</head>
+<body>
+    <h1>Dev Students Roll Call</h1>
+    <form>
+        <input type="text" placeholder="Type name here"><br><br>
+        <input type="text" placeholder="Time entered class"><br><br>
+        <input type="text" placeholder="Date"><br><br>
+        <button>Add Student in class</button>
+    </form>
+    <section></section>
+
+    <script>
+        const formAdd = document.querySelector('form')
+        const studentInput = document.querySelector('input')
+        const container = document.querySelector('section')
+
+        function submitHandler(e){ 
+            e.preventDefault()
+            axios.post('api/student', {name: studentInput.value,})
+                .then(res => { 
+                    container.innerHTML = ''
+                    studentInput.value = ''
+
+                    res.data.forEach(studentName => { 
+                        container.innerHTML += `<p>${studentName}</p>`
+                    })
+                })
+                .catch(err=> {
+                    studentInput.value = ''
+
+                    const notifyMe = document.createElement('aside')
+                    notifyMe.innerHTML = `<p>${err.response.data}</p>
+                    <button class = 'close'>close</button>`
+                    document.body.appendchild(notifyMe)
+
+                    document.querySelectorAll('.close').forEach(btn => { 
+                        btn.addEventListener('click', (e)=> { 
+                            e.target.parentNode.remove()
+                        })
+                    })
+                })
+        }
+        formAdd.addEventListener('submit', submitHandler)
+    </script>
+    
+</body>
+</html>
