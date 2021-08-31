@@ -47,6 +47,7 @@
                 })
                 .catch(err=> {
                     studentInput.value = ''
+                    timesInput.value = ''
 
                     const notifyMe = document.createElement('aside')
                     notifyMe.innerHTML = `<p>${err.response.data}</p>
