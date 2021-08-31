@@ -7,7 +7,7 @@ let rollbar = new Rollbar({
     captureUncaught: true, 
     captureUnhandledRejections: true
 })
-
+const students = []
 const app = express()
 app.use(express.json())
 app.use('/style', express.static('./public/styles.css'))
