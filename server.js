@@ -36,6 +36,20 @@ app.post('/api/student', (req, res)=>{
 
 })
 
+app.post('/api/times', (req,res)=> { 
+    let {timeStamp} = req.body
+
+    const index = timeEntered.findIndex(timeMarked => timeMarked === time)
+    if(index === -1 && timeStamp != ''){
+        timeEntered.push(timeStamp)
+        rollbar.log('Time entered Sucessfully', {author:'Carlos'})
+        res.status(200).send(timeEntered)
+    }else (timeStamp === '')
+        rollbar.error('No time given')
+        res.status(400).send('must enter a time for student')
+    
+})
+
 const port = process.env.PORT || 4903
 
 app.use(rollbar.errorHandler())
