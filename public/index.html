@@ -34,6 +34,16 @@
                     res.data.forEach(studentName => { 
                         container.innerHTML += `<p>${studentName}</p>`
                     })
+                e.preventDefault()
+                axios.post('api/times', {timeStamp: timesInput.value,})
+                    .then(res=> { 
+                        container.innerHTML = ''
+                        timesInput.value = ''
+
+                        res.data.forEach(timeMarked => { 
+                            container.innerHTML += `<p>${timeMarked}</p>`
+                        })
+                    })
                 })
                 .catch(err=> {
                     studentInput.value = ''
