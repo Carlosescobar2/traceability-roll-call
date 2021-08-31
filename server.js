@@ -45,9 +45,14 @@ app.post('/api/times', (req,res)=> {
         timeEntered.push(timeStamp)
         rollbar.log('Time entered Sucessfully', {author:'Carlos'})
         res.status(200).send(timeEntered)
-    }else (timeStamp === '')
+    }else if  (timeStamp === ''){
         rollbar.error('No time given')
         res.status(400).send('must enter a time for student')
+    }else { 
+        rollbar.error('time is already taken')
+        res.status(400)
+    }
+
     
 })
 
